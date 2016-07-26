@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="Queue.js"></script>
+    <script>
+
+        var q = Neoform.BlockingQueue(function(item) { console.log(item); }, 10000);
+
+        $(function(){
+            $("button").on("click", function() {
+                q.add("button clicked");
+            })
+        });
+
+    </script>
+</head>
+<body>
+<button>Click me</button>
+</body>
+</html>
