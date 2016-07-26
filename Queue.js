@@ -55,6 +55,7 @@ Neoform.BlockingQueue = (function(processor, timeOut) {
     function clearWaiter() {
         try {
             clearInterval(waiter);
+            waiter = null;
         } catch (e) {
 
         }
@@ -62,7 +63,6 @@ Neoform.BlockingQueue = (function(processor, timeOut) {
 
     function startTimeout() {
         if (timeOut > 0) {
-
             timeOuter = setTimeout(
                 function() {
                     clearWaiter();
@@ -80,6 +80,7 @@ Neoform.BlockingQueue = (function(processor, timeOut) {
         try {
             if (timeOut > 0 && timeOuter) {
                 clearTimeout(timeOuter);
+                timeOuter = null;
             }
         } catch (e) {
 
@@ -92,9 +93,10 @@ Neoform.BlockingQueue = (function(processor, timeOut) {
     };
 
     function start() {
-        /**
-         * Init
-         */
+        if (waiter) {
+            return;
+        }
+
         waiter = setInterval(
             function() {
                 if (items.length) {
